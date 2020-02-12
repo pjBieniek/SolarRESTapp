@@ -7,8 +7,8 @@ namespace SolarApp.Entities
 {
     public class Role
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public virtual IEnumerable<User> Users { get; set; }
+        public int RoleId { get; set; }
+        public string RoleTitle { get; set; }
+        public virtual IEnumerable<User> Users { get; set; } = new List<User>();
     }
 }

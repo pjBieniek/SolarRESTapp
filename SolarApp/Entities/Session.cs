@@ -9,6 +9,8 @@ namespace SolarApp.Entities
     {
         public int SessionId { get; set; }
         public User User { get; set; }
+
+        public int UserId { get; set; }
         public DateTime Date { get; set; }
     }
 }

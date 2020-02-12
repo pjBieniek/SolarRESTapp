@@ -8,10 +8,13 @@ namespace SolarApp.Entities
     public class User
     {
         public int UserId { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string UserFullName { get; set; }
+        public string UserEmail { get; set; }
+        public string UserPassword { get; set; }
+
         public Session Session { get; set; }
-        public virtual ICollection<Role> Roles { get; set; }
+        public int SessionId { get; set; }
+
+        public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
     }
 }
