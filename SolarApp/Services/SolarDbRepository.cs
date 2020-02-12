@@ -120,9 +120,12 @@ namespace SolarApp.Services
             _solarDbContext.Users.Remove(user);
         }
 
-        public User GetCompetition(int competitionId)
+        public Competition GetCompetition(int competitionId)
         {
-            throw new NotImplementedException();
+            int intValue;
+            if (!int.TryParse(competitionId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(competitionId));
+            return _solarDbContext.Competitions.Where(c => c.CompetitionId == competitionId).FirstOrDefault();
         }
 
         public IEnumerable<Competition> GetCompetitions()
@@ -130,9 +133,16 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public User GetResult(int teamId, int competitionId)
+        public Result GetResult(int teamId, int competitionId)
         {
-            throw new NotImplementedException();
+            int intValue1;
+            int intValue2;
+            if (!int.TryParse(teamId.ToString(), out intValue1))
+                throw new ArgumentNullException(nameof(teamId));
+            if (!int.TryParse(competitionId.ToString(), out intValue2))
+                throw new ArgumentNullException(nameof(competitionId));
+            return _solarDbContext.Results.Where(t => t.TeamId == teamId && t.CompetitionId == competitionId).FirstOrDefault();
+
         }
 
         public IEnumerable<Result> GetResults()
@@ -140,9 +150,11 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public User GetRole(int userId)
+        public Role GetRole(string title)
         {
-            throw new NotImplementedException();
+            if (title == string.Empty)
+                throw new ArgumentNullException(nameof(title));
+            return _solarDbContext.Roles.Where(r => r.RoleTitle == title).FirstOrDefault();
         }
 
         public IEnumerable<Role> GetRoles()
@@ -150,9 +162,12 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public User GetSession(int sessionId)
+        public Session GetSession(int sessionId)
         {
-            throw new NotImplementedException();
+            int intValue;
+            if (!int.TryParse(sessionId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(sessionId));
+            return _solarDbContext.Sessions.Where(s => s.SessionId == sessionId).FirstOrDefault();
         }
 
         public IEnumerable<Session> GetSessions()
@@ -160,9 +175,12 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public User GetTeam(int teamId)
+        public Team GetTeam(int teamId)
         {
-            throw new NotImplementedException();
+            int intValue;
+            if (!int.TryParse(teamId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(teamId));
+            return _solarDbContext.Teams.Where(t => t.TeamId == teamId).FirstOrDefault();
         }
 
         public IEnumerable<Team> GetTeams()
@@ -170,9 +188,12 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public User GetUser(int roleId, int userId)
+        public User GetUser(int userId)
         {
-            throw new NotImplementedException();
+            int intValue;
+            if (!int.TryParse(userId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(userId));
+            return _solarDbContext.Users.Where(u => u.UserId == userId).FirstOrDefault();
         }
 
         public IEnumerable<User> GetUsers()
