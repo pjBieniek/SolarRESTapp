@@ -73,11 +73,6 @@ namespace SolarApp.Services
             _solarDbContext.Users.Add(user);
         }
 
-        public bool CompetitionExists(Competition competition)
-        {
-            throw new NotImplementedException();
-        }
-
         public void DeleteCompetition(Competition competition)
         {
             if (competition == null)
@@ -130,7 +125,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Competition> GetCompetitions()
         {
-            throw new NotImplementedException();
+            return _solarDbContext.Competitions.OrderBy(c => c.CompetitionTitle).ToList(); 
         }
 
         public Result GetResult(int teamId, int competitionId)
@@ -147,7 +142,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Result> GetResults()
         {
-            throw new NotImplementedException();
+            return _solarDbContext.Results.OrderBy(r => r.Team.TeamName).ToList(); 
         }
 
         public Role GetRole(string title)
@@ -159,7 +154,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Role> GetRoles()
         {
-            throw new NotImplementedException();
+            return _solarDbContext.Roles.ToList();
         }
 
         public Session GetSession(int sessionId)
@@ -172,7 +167,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Session> GetSessions()
         {
-            throw new NotImplementedException();
+            return _solarDbContext.Sessions.ToList();
         }
 
         public Team GetTeam(int teamId)
@@ -185,7 +180,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Team> GetTeams()
         {
-            throw new NotImplementedException();
+            return _solarDbContext.Teams.OrderBy(t => t.TeamName).ToList();
         }
 
         public User GetUser(int userId)
@@ -197,6 +192,11 @@ namespace SolarApp.Services
         }
 
         public IEnumerable<User> GetUsers()
+        {
+            return _solarDbContext.Users.OrderBy(u => u.UserRoles).ToList();
+        }
+
+        public bool CompetitionExists(Competition competition)
         {
             throw new NotImplementedException();
         }
@@ -211,17 +211,17 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public bool Save()
-        {
-            throw new NotImplementedException();
-        }
-
         public bool SessionExists(Session session)
         {
             throw new NotImplementedException();
         }
 
         public bool TeamExists(Team team)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UserExists(User user)
         {
             throw new NotImplementedException();
         }
@@ -256,9 +256,9 @@ namespace SolarApp.Services
             throw new NotImplementedException();
         }
 
-        public bool UserExists(User user)
+        public bool Save()
         {
-            throw new NotImplementedException();
+            return (_solarDbContext.SaveChanges() > 0);
         }
     }
 }
