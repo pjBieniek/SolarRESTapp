@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SolarApp.Options;
 
 namespace SolarApp
 {
@@ -44,6 +45,13 @@ namespace SolarApp
                 app.UseHsts();
             }
 
+            var swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+
+            app.UseSwagger(option =>
+            {
+                option.RouteTemplate
+            })
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
