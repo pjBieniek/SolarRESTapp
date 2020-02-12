@@ -8,6 +8,9 @@ using Microsoft.Extensions.Hosting;
 using SolarApp.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
+using SolarApp.Services;
+using SolarApp.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace SolarApp
 {
@@ -25,6 +28,11 @@ namespace SolarApp
         {
             
             services.AddControllersWithViews();
+            services.AddScoped<ISolarDbRepository, SolarDbRepository>();
+            services.AddDbContext<SolarDbContext>(options => 
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

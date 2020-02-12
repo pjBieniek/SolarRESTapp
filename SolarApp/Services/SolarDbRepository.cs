@@ -196,65 +196,65 @@ namespace SolarApp.Services
             return _solarDbContext.Users.OrderBy(u => u.UserRoles).ToList();
         }
 
-        public bool CompetitionExists(Competition competition)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool CompetitionExists(Competition competition)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool ResultExists(Result result)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool ResultExists(Result result)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool RoleExists(Role role)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool RoleExists(Role role)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool SessionExists(Session session)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool SessionExists(Session session)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool TeamExists(Team team)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool TeamExists(Team team)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public bool UserExists(User user)
-        {
-            throw new NotImplementedException();
-        }
+        //public bool UserExists(User user)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void UpdateCompetition(Competition competition)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateCompetition(Competition competition)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void UpdateResult(Result result)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateResult(Result result)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void UpdateRole(Role role)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateRole(Role role)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void UpdateSession(Session session)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateSession(Session session)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void UpdateTeam(Team team)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateTeam(Team team)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        public void UpdateUser(User user)
-        {
-            throw new NotImplementedException();
-        }
+        //public void UpdateUser(User user)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public bool Save()
         {
