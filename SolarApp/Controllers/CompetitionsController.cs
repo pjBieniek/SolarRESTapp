@@ -22,7 +22,7 @@ namespace SolarApp.Controllers
         public IActionResult GetCompetitions()
         {
             var competitionsFromRepo = _solarDbRepository.GetCompetitions();
-            return new JsonResult(competitionsFromRepo);
+            return Ok(competitionsFromRepo);
         }
 
         [HttpGet("{competitionId}")]
@@ -31,7 +31,7 @@ namespace SolarApp.Controllers
             var competitionFromRepo = _solarDbRepository.GetCompetition(competitionId);
             if (competitionFromRepo == null)
                 return NotFound();
-            return new JsonResult(competitionFromRepo);
+            return Ok(competitionFromRepo);
         }
     }
 }
