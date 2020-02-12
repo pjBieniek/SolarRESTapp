@@ -52,6 +52,21 @@ namespace SolarApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserFullName = table.Column<string>(maxLength: 100, nullable: false),
+                    UserEmail = table.Column<string>(nullable: true),
+                    UserPassword = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Results",
                 columns: table => new
                 {
@@ -79,47 +94,13 @@ namespace SolarApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRole",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRole", x => new { x.RoleId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_UserRole_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserFullName = table.Column<string>(maxLength: 100, nullable: false),
-                    UserEmail = table.Column<string>(nullable: true),
-                    UserPassword = table.Column<string>(nullable: true),
-                    SessionId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sessions",
                 columns: table => new
                 {
                     SessionId = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(nullable: false),
-                    Date = table.Column<DateTime>(nullable: false)
+                    Date = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,6 +108,30 @@ namespace SolarApp.Migrations
                     table.ForeignKey(
                         name: "FK_Sessions_Users_UserId",
                         column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UId = table.Column<int>(nullable: false),
+                    RId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UId, x.RId });
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Roles_RId",
+                        column: x => x.RId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UId",
+                        column: x => x.UId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
@@ -160,32 +165,22 @@ namespace SolarApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "SessionId", "UserEmail", "UserFullName", "UserPassword" },
-                values: new object[] { 1, 0, "simple@mail.com", "Jan Kowalski", "password" });
+                columns: new[] { "UserId", "UserEmail", "UserFullName", "UserPassword" },
+                values: new object[] { 1, "simple@mail.com", "Jan Kowalski", "password" });
 
             migrationBuilder.InsertData(
                 table: "Results",
                 columns: new[] { "ResultId", "CompetitionId", "ResultPosition", "TeamId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 0 },
-                    { 2, 2, 3, 0 }
+                    { 1, 1, 1, 1 },
+                    { 2, 2, 3, 1 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Sessions",
                 columns: new[] { "SessionId", "Date", "UserId" },
                 values: new object[] { 1, new DateTime(2020, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
-
-            migrationBuilder.InsertData(
-                table: "UserRole",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 2 },
-                    { 1, 1 },
-                    { 3, 1 }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Results_CompetitionId",
@@ -204,43 +199,21 @@ namespace SolarApp.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRole_UserId",
-                table: "UserRole",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_SessionId",
-                table: "Users",
-                column: "SessionId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_UserRole_Users_UserId",
-                table: "UserRole",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "UserId",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Users_Sessions_SessionId",
-                table: "Users",
-                column: "SessionId",
-                principalTable: "Sessions",
-                principalColumn: "SessionId",
-                onDelete: ReferentialAction.Cascade);
+                name: "IX_UserRoles_RId",
+                table: "UserRoles",
+                column: "RId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Sessions_Users_UserId",
-                table: "Sessions");
-
             migrationBuilder.DropTable(
                 name: "Results");
 
             migrationBuilder.DropTable(
-                name: "UserRole");
+                name: "Sessions");
+
+            migrationBuilder.DropTable(
+                name: "UserRoles");
 
             migrationBuilder.DropTable(
                 name: "Competitions");
@@ -253,9 +226,6 @@ namespace SolarApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Sessions");
         }
     }
 }

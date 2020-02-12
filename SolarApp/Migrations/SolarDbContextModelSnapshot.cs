@@ -93,14 +93,14 @@ namespace SolarApp.Migrations
                             ResultId = 1,
                             CompetitionId = 1,
                             ResultPosition = 1,
-                            TeamId = 0
+                            TeamId = 1
                         },
                         new
                         {
                             ResultId = 2,
                             CompetitionId = 2,
                             ResultPosition = 3,
-                            TeamId = 0
+                            TeamId = 1
                         });
                 });
 
@@ -212,9 +212,6 @@ namespace SolarApp.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("SessionId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("UserEmail")
                         .HasColumnType("text");
 
@@ -228,15 +225,12 @@ namespace SolarApp.Migrations
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("SessionId");
-
                     b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
                             UserId = 1,
-                            SessionId = 0,
                             UserEmail = "simple@mail.com",
                             UserFullName = "Jan Kowalski",
                             UserPassword = "password"
@@ -245,34 +239,17 @@ namespace SolarApp.Migrations
 
             modelBuilder.Entity("SolarApp.Entities.UserRole", b =>
                 {
-                    b.Property<int>("RoleId")
+                    b.Property<int>("UId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("RId")
                         .HasColumnType("integer");
 
-                    b.HasKey("RoleId", "UserId");
+                    b.HasKey("UId", "RId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RId");
 
-                    b.ToTable("UserRole");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            RoleId = 3,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            RoleId = 1,
-                            UserId = 2
-                        });
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("SolarApp.Entities.Result", b =>
@@ -293,17 +270,8 @@ namespace SolarApp.Migrations
             modelBuilder.Entity("SolarApp.Entities.Session", b =>
                 {
                     b.HasOne("SolarApp.Entities.User", "User")
-                        .WithOne()
+                        .WithOne("Session")
                         .HasForeignKey("SolarApp.Entities.Session", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SolarApp.Entities.User", b =>
-                {
-                    b.HasOne("SolarApp.Entities.Session", "Session")
-                        .WithMany()
-                        .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -312,13 +280,13 @@ namespace SolarApp.Migrations
                 {
                     b.HasOne("SolarApp.Entities.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SolarApp.Entities.User", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

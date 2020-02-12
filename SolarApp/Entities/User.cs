@@ -9,7 +9,6 @@ namespace SolarApp.Entities
 {
     public class User
     {
-        [Key]
         public int UserId { get; set; }
 
         [Required]
@@ -18,10 +17,9 @@ namespace SolarApp.Entities
         public string UserEmail { get; set; }
         public string UserPassword { get; set; }
 
-        [ForeignKey("SessionId")]
         public Session Session { get; set; }
-        public int SessionId { get; set; }
+        //public int SessionId { get; set; }
 
-        public List<UserRole> UserRoles { get; set; }
+        public IList<UserRole> UserRoles { get; set; }
     }
 }

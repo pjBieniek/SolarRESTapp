@@ -19,6 +19,7 @@ namespace SolarApp.DbContexts
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,16 +36,20 @@ namespace SolarApp.DbContexts
             modelBuilder.Entity<User>()
                 .Property(u => u.UserId)
                 .ValueGeneratedOnAdd();
+            modelBuilder.Entity<User>()
+                .HasOne<Session>(s => s.Session)
+                .WithOne(ad => ad.User)
+                .HasForeignKey<Session>(ad => ad.UserId);
             modelBuilder.Entity<UserRole>()
-                .HasKey(r => new { r.RoleId, r.UserId });
+                .HasKey(ur => new { ur.UId, ur.RId });
             modelBuilder.Entity<UserRole>()
-                .HasOne(ur => ur.User)
+                .HasOne<User>(ur => ur.User)
                 .WithMany(u => u.UserRoles)
-                .HasForeignKey(ur => ur.UserId);
+                .HasForeignKey(ur => ur.UId);
             modelBuilder.Entity<UserRole>()
-                .HasOne(ur => ur.Role)
+                .HasOne<Role>(ur => ur.Role)
                 .WithMany(r => r.UserRoles)
-                .HasForeignKey(ur => ur.RoleId);
+                .HasForeignKey(ur => ur.RId);
 
             modelBuilder.Entity<Competition>()
                 .HasData(
@@ -64,20 +69,31 @@ namespace SolarApp.DbContexts
                     CompetitionUrlAddress = "https://box.example2.org/",
                     CompetitionDate = new DateTime(2012, 9, 1)
                 });
-            
+
+            modelBuilder.Entity<Team>()
+                .HasData(
+                new Team
+                {
+                    TeamId = 1,
+                    TeamName = "First team",
+                    TeamDescription = "a description"
+                });
+
             modelBuilder.Entity<Result>()
                 .HasData(
                 new Result
                 {
                     ResultId = 1,
                     ResultPosition = 1,
-                    CompetitionId = 1
+                    CompetitionId = 1,
+                    TeamId = 1
                 },
                 new Result
                 {
                     ResultId = 2,
                     ResultPosition = 3,
-                    CompetitionId = 2
+                    CompetitionId = 2,
+                    TeamId = 1
                 });
             
             modelBuilder.Entity<Role>()
@@ -124,32 +140,24 @@ namespace SolarApp.DbContexts
                     UserId = 1,
                     SessionId = 1
                 });
-            modelBuilder.Entity<Team>()
-                .HasData(
-                new Team
-                {
-                    TeamId = 1,
-                    TeamName = "First team",
-                    TeamDescription = "a description"
-                });
 
-            modelBuilder.Entity<UserRole>()
-                .HasData(
-                new UserRole
-                {
-                    RoleId = 1,
-                    UserId = 1
-                },
-                new UserRole
-                {
-                    RoleId = 3,
-                    UserId = 1
-                },
-                new UserRole
-                {
-                    RoleId = 1,
-                    UserId = 2
-                });
+            //modelBuilder.Entity<UserRole>()
+            //    .HasData(
+            //    new UserRole
+            //    {
+            //        RId = 1,
+            //        UId = 1
+            //    },
+            //    new UserRole
+            //    {
+            //        RoleId = 3,
+            //        UserId = 1
+            //    },
+            //    new UserRole
+            //    {
+            //        RoleId = 1,
+            //        UserId = 2
+            //    });
             base.OnModelCreating(modelBuilder);
         }
     }

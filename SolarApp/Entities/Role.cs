@@ -8,12 +8,12 @@ namespace SolarApp.Entities
 {
     public class Role
     {
-        [Key]
         public int RoleId { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string RoleTitle { get; set; }
-        public List<UserRole> UserRoles { get; set; }
+
+        public IList<UserRole> UserRoles { get; set; }
     }
 }
