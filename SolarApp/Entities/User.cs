@@ -22,6 +22,6 @@ namespace SolarApp.Entities
         public Session Session { get; set; }
         public int SessionId { get; set; }
 
-        public virtual ICollection<Role> Roles { get; set; } = new List<Role>();
+        public List<UserRole> UserRoles { get; set; }
     }
 }

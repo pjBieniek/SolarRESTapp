@@ -14,6 +14,6 @@ namespace SolarApp.Entities
         [Required]
         [MaxLength(100)]
         public string RoleTitle { get; set; }
-        public virtual IEnumerable<User> Users { get; set; } = new List<User>();
+        public List<UserRole> UserRoles { get; set; }
     }
 }
