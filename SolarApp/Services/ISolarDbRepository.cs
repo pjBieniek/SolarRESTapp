@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SolarApp.Services
 {
-    interface ISolarDbRepository
+    public interface ISolarDbRepository
     {
         IEnumerable<User> GetUsers();
         User GetUser(int userId);
