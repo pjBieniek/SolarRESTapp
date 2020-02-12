@@ -50,6 +50,7 @@ namespace SolarApp.DbContexts
                 .HasData(
                 new Competition
                 {
+                    CompetitionId = 1,
                     CompetitionTitle = "TestTitle",
                     CompetitionDescription = "this is a competition description",
                     CompetitionUrlAddress = "https://box.example.org/",
@@ -57,6 +58,7 @@ namespace SolarApp.DbContexts
                 },
                 new Competition
                 {
+                    CompetitionId = 2,
                     CompetitionTitle = "TestTitle2",
                     CompetitionDescription = "this is a competition description2",
                     CompetitionUrlAddress = "https://box.example2.org/",
@@ -67,11 +69,13 @@ namespace SolarApp.DbContexts
                 .HasData(
                 new Result
                 {
+                    ResultId = 1,
                     ResultPosition = 1,
                     CompetitionId = 1
                 },
                 new Result
                 {
+                    ResultId = 2,
                     ResultPosition = 3,
                     CompetitionId = 2
                 });
@@ -80,28 +84,34 @@ namespace SolarApp.DbContexts
                 .HasData(
                 new Role
                 {
+                    RoleId = 1,
                     RoleTitle = "root"
                 },
                 new Role
                 {
+                    RoleId = 2,
                     RoleTitle = "kompozyt"
                 },
                 new Role
                 {
+                    RoleId = 3,
                     RoleTitle = "elektryk"
                 },
                 new Role
                 {
+                    RoleId = 4,
                     RoleTitle = "marketing"
                 },
                 new Role
                 {
+                    RoleId = 5,
                     RoleTitle = "konstrukcja"
                 });
             modelBuilder.Entity<User>()
                 .HasData(
                 new User
                 {
+                    UserId = 1,
                     UserFullName = "Jan Kowalski",
                     UserEmail = "simple@mail.com",
                     UserPassword = "password"
@@ -118,6 +128,7 @@ namespace SolarApp.DbContexts
                 .HasData(
                 new Team
                 {
+                    TeamId = 1,
                     TeamName = "First team",
                     TeamDescription = "a description"
                 });
