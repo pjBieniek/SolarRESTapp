@@ -15,34 +15,62 @@ namespace SolarApp.Services
         {
             _solarDbContext = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public void AddCompetition(string title)
+        public void AddCompetition(string title, Competition competition)
         {
-            throw new NotImplementedException();
+            if (title == string.Empty)
+                throw new ArgumentNullException(nameof(title));
+            if (competition == null)
+                throw new ArgumentNullException(nameof(competition));
+            competition.CompetitionTitle = title;
+            _solarDbContext.Competitions.Add(competition);
         }
 
-        public void AddResult()
+        public void AddResult(Result result)
         {
-            throw new NotImplementedException();
+            if (result == null)
+                throw new ArgumentNullException(nameof(result));
+            _solarDbContext.Results.Add(result);
         }
 
-        public void AddRole(string title)
+        public void AddRole(string title, Role role)
         {
-            throw new NotImplementedException();
+            if (title == string.Empty)
+                throw new ArgumentNullException(nameof(title));
+            if (role == null)
+                throw new ArgumentNullException(nameof(role));
+            role.RoleTitle = title;
+            _solarDbContext.Roles.Add(role);
         }
 
-        public void AddSession(User user, DateTime date)
+        public void AddSession(User user, DateTime date, Session session)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            if (date == null)
+                throw new ArgumentNullException(nameof(date));
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            _solarDbContext.Sessions.Add(session);
         }
 
-        public void AddTeam(string name)
+        public void AddTeam(string name, Team team)
         {
-            throw new NotImplementedException();
+            if (name == string.Empty)
+                throw new ArgumentNullException(nameof(name));
+            if (team == null)
+                throw new ArgumentNullException(nameof(team));
+            team.TeamName = name;
+            _solarDbContext.Teams.Add(team);
         }
 
-        public void AddUser(string fullName)
+        public void AddUser(string fullName, User user)
         {
-            throw new NotImplementedException();
+            if (fullName == string.Empty)
+                throw new ArgumentNullException(nameof(fullName));
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            user.UserFullName = fullName;
+            _solarDbContext.Users.Add(user);
         }
 
         public bool CompetitionExists(Competition competition)
@@ -52,32 +80,44 @@ namespace SolarApp.Services
 
         public void DeleteCompetition(Competition competition)
         {
-            throw new NotImplementedException();
+            if (competition == null)
+                throw new ArgumentNullException(nameof(competition));
+            _solarDbContext.Competitions.Remove(competition);
         }
 
         public void DeleteResult(Result result)
         {
-            throw new NotImplementedException();
+            if (result == null)
+                throw new ArgumentNullException(nameof(result));
+            _solarDbContext.Results.Remove(result);
         }
 
         public void DeleteRole(Role role)
         {
-            throw new NotImplementedException();
+            if (role == null)
+                throw new ArgumentNullException(nameof(role));
+            _solarDbContext.Roles.Remove(role);
         }
 
         public void DeleteSession(Session session)
         {
-            throw new NotImplementedException();
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            _solarDbContext.Sessions.Remove(session);
         }
 
         public void DeleteTeam(Team team)
         {
-            throw new NotImplementedException();
+            if (team == null)
+                throw new ArgumentNullException(nameof(team));
+            _solarDbContext.Teams.Remove(team);
         }
 
         public void DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+            _solarDbContext.Users.Remove(user);
         }
 
         public User GetCompetition(int competitionId)

@@ -10,37 +10,37 @@ namespace SolarApp.Services
     {
         IEnumerable<User> GetUsers();
         User GetUser(int roleId, int userId);
-        void AddUser(string fullName);
+        void AddUser(string fullName, User user);
         void UpdateUser(User user);
         void DeleteUser(User user);
 
         IEnumerable<Session> GetSessions();
         User GetSession(int sessionId);
-        void AddSession(User user, DateTime date);
+        void AddSession(User user, DateTime date, Session session);
         void UpdateSession(Session session);
         void DeleteSession(Session session);
 
         IEnumerable<Team> GetTeams();
         User GetTeam(int teamId);
-        void AddTeam(string name);
+        void AddTeam(string name, Team team);
         void UpdateTeam(Team team);
         void DeleteTeam(Team team);
 
         IEnumerable<Competition> GetCompetitions();
         User GetCompetition(int competitionId);
-        void AddCompetition(string title);
+        void AddCompetition(string title, Competition competition);
         void UpdateCompetition(Competition competition);
         void DeleteCompetition(Competition competition);
 
         IEnumerable<Result> GetResults();
         User GetResult(int teamId, int competitionId);
-        void AddResult();
+        void AddResult(Result result);
         void UpdateResult(Result result);
         void DeleteResult(Result result);
 
         IEnumerable<Role> GetRoles();
         User GetRole(int userId);
-        void AddRole(string title);
+        void AddRole(string title, Role role);
         void UpdateRole(Role role);
         void DeleteRole(Role role);
 
