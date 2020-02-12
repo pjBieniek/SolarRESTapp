@@ -58,6 +58,7 @@ namespace SolarApp
             Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
+            // route: https://localhost:44395/swagger/index.html
             app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute;});
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
