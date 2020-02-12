@@ -48,10 +48,8 @@ namespace SolarApp
             var swaggerOptions = new SwaggerOptions();
             Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
 
-            app.UseSwagger(option =>
-            {
-                option.RouteTemplate
-            })
+            app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute;});
+            app.UseSwaggerUI(option => { option.SwaggerEndpoint(swaggerOptions.UiEndPoint, swaggerOptions.Desription); });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
