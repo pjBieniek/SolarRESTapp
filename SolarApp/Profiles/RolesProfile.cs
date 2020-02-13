@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 
 namespace SolarApp.Profiles
 {
-    public class RolesProfile
+    public class RolesProfile : Profile
     {
+        public RolesProfile()
+        {
+            CreateMap<Entities.Role, Models.RoleDTO>();
+        }
     }
 }

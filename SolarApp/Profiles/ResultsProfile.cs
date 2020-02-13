@@ -10,7 +10,7 @@ namespace SolarApp.Profiles
     {
         public ResultsProfile()
         {
-            
+            CreateMap<Entities.Result, Models.ResultDTO>();
         }
     }
 }
