@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SolarApp.Helpers;
+using SolarApp.Models;
 using SolarApp.Services;
 using System;
 using System.Collections.Generic;
@@ -19,10 +21,25 @@ namespace SolarApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCompetitions()
+        public ActionResult<IEnumerable<CompetitionDTO>> GetCompetitions()
         {
             var competitionsFromRepo = _solarDbRepository.GetCompetitions();
-            return Ok(competitionsFromRepo);
+            var competitionsDto = new List<CompetitionDTO>();
+
+            foreach(var comp in competitionsFromRepo)
+            {
+                competitionsDto.Add(new CompetitionDTO()
+                {
+                    competitionid = comp.CompetitionId,
+                    CompetitionTitle = comp.CompetitionTitle,
+                    CompetitionDescription = comp.CompetitionDescription,
+                    CompetitionUrlAddress = comp.CompetitionUrlAddress,
+                    Date = $"{comp.CompetitionDate.ToString("d MMM yyyy")}  ({comp.CompetitionDate.GetDays()})"
+                });
+                
+
+            }
+            return Ok(competitionsDto);
         }
 
         [HttpGet("{competitionId}")]
