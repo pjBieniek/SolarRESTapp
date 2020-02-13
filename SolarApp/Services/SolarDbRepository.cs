@@ -128,21 +128,21 @@ namespace SolarApp.Services
             return _solarDbContext.Competitions.OrderBy(c => c.CompetitionTitle).ToList(); 
         }
 
-        public Result GetResult(int teamId, int competitionId)
+        public Result GetResult(int resultId, int competitionId)
         {
             int intValue1;
             int intValue2;
-            if (!int.TryParse(teamId.ToString(), out intValue1))
-                throw new ArgumentNullException(nameof(teamId));
+            if (!int.TryParse(resultId.ToString(), out intValue1))
+                throw new ArgumentNullException(nameof(resultId));
             if (!int.TryParse(competitionId.ToString(), out intValue2))
                 throw new ArgumentNullException(nameof(competitionId));
-            return _solarDbContext.Results.Where(t => t.TeamId == teamId && t.CompetitionId == competitionId).FirstOrDefault();
+            return _solarDbContext.Results.Where(r => r.ResultId == resultId && r.CompetitionId == competitionId).FirstOrDefault();
 
         }
 
-        public IEnumerable<Result> GetResults()
+        public IEnumerable<Result> GetResults(int competitionId)
         {
-            return _solarDbContext.Results.OrderBy(r => r.Team.TeamName).ToList(); 
+            return _solarDbContext.Results.Where(r => r.CompetitionId == competitionId).ToList(); 
         }
 
         public Role GetRole(string title)
@@ -196,10 +196,13 @@ namespace SolarApp.Services
             return _solarDbContext.Users.OrderBy(u => u.UserRoles).ToList();
         }
 
-        //public bool CompetitionExists(Competition competition)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public bool CompetitionExists(int competitionId)
+        {
+            var competitionById = _solarDbContext.Competitions.Find(competitionId);
+            if (competitionById == null)
+                return false;
+            return true;
+        }
 
         //public bool ResultExists(Result result)
         //{

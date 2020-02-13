@@ -32,8 +32,8 @@ namespace SolarApp.Services
         //void UpdateCompetition(Competition competition);
         void DeleteCompetition(Competition competition);
 
-        IEnumerable<Result> GetResults();
-        Result GetResult(int teamId, int competitionId);
+        IEnumerable<Result> GetResults(int competitionId);
+        Result GetResult(int resultId, int competitionId);
         void AddResult(Result result);
         //void UpdateResult(Result result);
         void DeleteResult(Result result);
@@ -47,7 +47,7 @@ namespace SolarApp.Services
         //bool UserExists(User user);
         //bool SessionExists(Session session);
         //bool TeamExists(Team team);
-        //bool CompetitionExists(Competition competition);
+        bool CompetitionExists(int competitionId);
         //bool ResultExists(Result result);
         //bool RoleExists(Role role);
         bool Save();

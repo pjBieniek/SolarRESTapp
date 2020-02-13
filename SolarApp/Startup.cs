@@ -37,7 +37,7 @@ namespace SolarApp
             services.AddDbContext<SolarDbContext>(options => 
             {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            },ServiceLifetime.Transient);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
