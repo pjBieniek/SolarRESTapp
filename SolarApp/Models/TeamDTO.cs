@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace SolarApp.Models
 {
-    public class ResultDTO
+    public class TeamDTO
     {
-        public int ResultId { get; set; }
-        public int ResultPosition { get; set; }
-        public int CompetitionId { get; set; }
         public int TeamId { get; set; }
+        public string TeamName { get; set; }
+        public string TeamDescription { get; set; }
     }
 }
