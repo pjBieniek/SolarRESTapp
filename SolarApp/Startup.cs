@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using SolarApp.Services;
 using SolarApp.DbContexts;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace SolarApp
 {
@@ -31,6 +32,7 @@ namespace SolarApp
             {
                 setupAction.ReturnHttpNotAcceptable = true;
             }).AddXmlDataContractSerializerFormatters();
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ISolarDbRepository, SolarDbRepository>();
             services.AddDbContext<SolarDbContext>(options => 
             {

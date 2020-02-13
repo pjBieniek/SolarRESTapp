@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using SolarApp.Entities;
 using SolarApp.Helpers;
 using SolarApp.Models;
 using SolarApp.Services;
@@ -14,32 +16,19 @@ namespace SolarApp.Controllers
     public class CompetitionsController : ControllerBase
     {
         private readonly ISolarDbRepository _solarDbRepository;
+        private readonly IMapper _mapper;
 
-        public CompetitionsController(ISolarDbRepository solarDbRepository)
+        public CompetitionsController(ISolarDbRepository solarDbRepository, IMapper mapper)
         {
             _solarDbRepository = solarDbRepository ?? throw new ArgumentNullException(nameof(solarDbRepository));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<CompetitionDTO>> GetCompetitions()
         {
-            var competitionsFromRepo = _solarDbRepository.GetCompetitions();
-            var competitionsDto = new List<CompetitionDTO>();
-
-            foreach(var comp in competitionsFromRepo)
-            {
-                competitionsDto.Add(new CompetitionDTO()
-                {
-                    competitionid = comp.CompetitionId,
-                    CompetitionTitle = comp.CompetitionTitle,
-                    CompetitionDescription = comp.CompetitionDescription,
-                    CompetitionUrlAddress = comp.CompetitionUrlAddress,
-                    Date = $"{comp.CompetitionDate.ToString("d MMM yyyy")}  ({comp.CompetitionDate.GetDays()})"
-                });
-                
-
-            }
-            return Ok(competitionsDto);
+            var competitionsFromRepo = _solarDbRepository.GetCompetitions().ToList();
+            return Ok(_mapper.Map<List<Competition>, List<CompetitionDTO>>(competitionsFromRepo));
         }
 
         [HttpGet("{competitionId}")]
