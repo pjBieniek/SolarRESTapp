@@ -193,7 +193,15 @@ namespace SolarApp.Services
 
         public IEnumerable<User> GetUsers()
         {
-            return _solarDbContext.Users.OrderBy(u => u.UserRoles).ToList();
+            return _solarDbContext.Users;
+        }
+
+        public IEnumerable<UserRole> GetUserRoles(int userId)
+        {
+            int intValue;
+            if (!int.TryParse(userId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(userId));
+            return _solarDbContext.UserRoles.Where(ur => ur.UId == userId).ToList();
         }
 
         public bool CompetitionExists(int competitionId)
