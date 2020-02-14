@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SolarApp.Models;
 using SolarApp.Services;
@@ -25,6 +26,8 @@ namespace SolarApp.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<IEnumerable<ResultDTO>> GetResultsForCompetition(int competitionId)
         {
             if (!_solarDbRepository.CompetitionExists(competitionId))
@@ -35,6 +38,8 @@ namespace SolarApp.Controllers
         }
 
         [HttpGet("{resultId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<ResultDTO> GetResultFromCompetition(int resultId, int competitionId)
         {
             if (!_solarDbRepository.CompetitionExists(competitionId))
