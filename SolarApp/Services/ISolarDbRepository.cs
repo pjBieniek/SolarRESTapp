@@ -44,8 +44,6 @@ namespace SolarApp.Services
         //void UpdateRole(Role role);
         void DeleteRole(Role role);
 
-        IEnumerable<UserRole> GetUserRoles(int userId);
-
         //bool UserExists(User user);
         //bool SessionExists(Session session);
         //bool TeamExists(Team team);
