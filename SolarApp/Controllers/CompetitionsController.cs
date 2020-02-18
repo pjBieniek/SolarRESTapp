@@ -51,9 +51,6 @@ namespace SolarApp.Controllers
         public ActionResult<CompetitionDTO> CreateCompetition([FromBody] CompetitionForCreatingDTO competition)
         {
             var competitionEntity = _mapper.Map<Entities.Competition>(competition);
-            Console.WriteLine(competition.CompetitionDate.ToString());
-
-            Console.WriteLine(competitionEntity.CompetitionDate.ToString());
             _solarDbRepository.AddCompetition(competitionEntity);
             _solarDbRepository.Save();
 
