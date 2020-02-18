@@ -15,13 +15,10 @@ namespace SolarApp.Services
         {
             _solarDbContext = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public void AddCompetition(string title, Competition competition)
+        public void AddCompetition(Competition competition)
         {
-            if (title == string.Empty)
-                throw new ArgumentNullException(nameof(title));
             if (competition == null)
                 throw new ArgumentNullException(nameof(competition));
-            competition.CompetitionTitle = title;
             _solarDbContext.Competitions.Add(competition);
         }
 
@@ -198,10 +195,10 @@ namespace SolarApp.Services
 
         public bool CompetitionExists(int competitionId)
         {
-            var competitionById = _solarDbContext.Competitions.Find(competitionId);
-            if (competitionById == null)
-                return false;
-            return true;
+            int intValue;
+            if (!int.TryParse(competitionId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(competitionId));
+            return _solarDbContext.Competitions.Any(c => c.CompetitionId == competitionId);
         }
 
         //public bool ResultExists(Result result)

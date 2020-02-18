@@ -28,7 +28,7 @@ namespace SolarApp.Services
 
         IEnumerable<Competition> GetCompetitions();
         Competition GetCompetition(int competitionId);
-        void AddCompetition(string title, Competition competition);
+        void AddCompetition(Competition competition);
         //void UpdateCompetition(Competition competition);
         void DeleteCompetition(Competition competition);
 
