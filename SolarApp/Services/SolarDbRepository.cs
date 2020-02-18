@@ -29,6 +29,17 @@ namespace SolarApp.Services
             _solarDbContext.Results.Add(result);
         }
 
+        public void AddResult(int competitionId, Result result)
+        {
+            int intValue;
+            if (!int.TryParse(competitionId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(competitionId));
+            if (result == null)
+                throw new ArgumentNullException(nameof(result));
+            result.CompetitionId = competitionId;
+            _solarDbContext.Results.Add(result);
+        }
+
         public void AddRole(string title, Role role)
         {
             if (title == string.Empty)

@@ -35,6 +35,7 @@ namespace SolarApp.Services
         IEnumerable<Result> GetResults(int competitionId);
         Result GetResult(int resultId, int competitionId);
         void AddResult(Result result);
+        void AddResult(int competitionId, Result result);
         //void UpdateResult(Result result);
         void DeleteResult(Result result);
 
