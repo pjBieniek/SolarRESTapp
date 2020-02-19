@@ -1,4 +1,5 @@
-﻿using SolarApp.DbContexts;
+﻿using Microsoft.EntityFrameworkCore;
+using SolarApp.DbContexts;
 using SolarApp.Entities;
 using System;
 using System.Collections.Generic;
@@ -81,11 +82,12 @@ namespace SolarApp.Services
             _solarDbContext.Users.Add(user);
         }
 
-        public void DeleteCompetition(Competition competition)
+        public Competition DeleteCompetition(int id)
         {
-            if (competition == null)
-                throw new ArgumentNullException(nameof(competition));
-            _solarDbContext.Competitions.Remove(competition);
+            Competition competition = _solarDbContext.Competitions.FirstOrDefault(c => c.CompetitionId == id);
+            if (competition != null)
+                _solarDbContext.Competitions.Remove(competition);
+            return competition;
         }
 
         public void DeleteResult(Result result)
@@ -237,10 +239,14 @@ namespace SolarApp.Services
         //    throw new NotImplementedException();
         //}
 
-        //public void UpdateCompetition(Competition competition)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void UpdateCompetition(int competitionId, Competition competition)
+        {
+            var competitionEntity = GetCompetition(competitionId);
+            competitionEntity.CompetitionTitle = competition.CompetitionTitle;
+            competitionEntity.CompetitionDescription = competition.CompetitionDescription;
+            competitionEntity.CompetitionUrlAddress = competition.CompetitionUrlAddress;
+            competitionEntity.CompetitionDate = competition.CompetitionDate;
+        }
 
         //public void UpdateResult(Result result)
         //{
