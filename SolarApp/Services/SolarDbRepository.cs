@@ -72,13 +72,10 @@ namespace SolarApp.Services
             _solarDbContext.Teams.Add(team);
         }
 
-        public void AddUser(string fullName, User user)
+        public void AddUser(User user)
         {
-            if (fullName == string.Empty)
-                throw new ArgumentNullException(nameof(fullName));
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
-            user.UserFullName = fullName;
             _solarDbContext.Users.Add(user);
         }
 

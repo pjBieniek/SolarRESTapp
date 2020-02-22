@@ -46,5 +46,17 @@ namespace SolarApp.Controllers
             return Ok(_mapper.Map<UserDTO>(userFromRepo));
         }
 
+        [HttpPost]
+        public ActionResult<UserDTO> CreateUser([FromBody] UserForCreatingDTO user)
+        {
+            var userEntity = _mapper.Map<Entities.User>(user);
+            _solarDbRepository.AddUser(userEntity);
+            _solarDbRepository.Save();
+
+            var userToReturn = _mapper.Map<UserDTO>(userEntity);
+
+            return CreatedAtRoute("GetUser", new { userId = userToReturn.UserId }, userToReturn);
+        }
+
     }
 }

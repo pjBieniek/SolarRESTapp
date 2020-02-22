@@ -10,7 +10,7 @@ namespace SolarApp.Services
     {
         IEnumerable<User> GetUsers();
         User GetUser(int userId);
-        void AddUser(string fullName, User user);
+        void AddUser(User user);
         //void UpdateUser(User user);
         void DeleteUser(User user);
 
