@@ -5,6 +5,13 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SolarApp.Options;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
+using SolarApp.Services;
+using SolarApp.DbContexts;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace SolarApp
 {
@@ -21,12 +28,28 @@ namespace SolarApp
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(setupAction =>
+            {
+                setupAction.ReturnHttpNotAcceptable = true;
+            }).AddXmlDataContractSerializerFormatters();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<ISolarDbRepository, SolarDbRepository>();
+            services.AddDbContext<SolarDbContext>(options => 
+            {
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+            },ServiceLifetime.Transient);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+            });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            
+            // Register the Swagger generator
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Solar API", Version = "v1" });
             });
         }
 
@@ -44,6 +67,16 @@ namespace SolarApp
                 app.UseHsts();
             }
 
+            var swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            // route: https://localhost:44395/swagger/index.html
+            app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute;});
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(option => { option.SwaggerEndpoint(swaggerOptions.UiEndPoint, swaggerOptions.Desription); });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
