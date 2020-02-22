@@ -35,5 +35,16 @@ namespace SolarApp.Controllers
             return Ok(_mapper.Map<List<User>, List<UserDTO>>(usersFromRepo));
         }
 
+        [HttpGet("{userId}", Name = "GetUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<UserDTO> GetUser(int userId)
+        {
+            if (!_solarDbRepository.UserExists(userId))
+                return NotFound();
+            var userFromRepo = _solarDbRepository.GetUser(userId);
+            return Ok(_mapper.Map<UserDTO>(userFromRepo));
+        }
+
     }
 }

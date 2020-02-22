@@ -45,7 +45,7 @@ namespace SolarApp.Services
         //void UpdateRole(Role role);
         void DeleteRole(Role role);
 
-        //bool UserExists(User user);
+        bool UserExists(int userId);
         //bool SessionExists(Session session);
         //bool TeamExists(Team team);
         bool CompetitionExists(int competitionId);

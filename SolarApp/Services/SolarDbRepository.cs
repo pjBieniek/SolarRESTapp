@@ -234,10 +234,13 @@ namespace SolarApp.Services
         //    throw new NotImplementedException();
         //}
 
-        //public bool UserExists(User user)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public bool UserExists(int userId)
+        {
+            int intValue;
+            if (!int.TryParse(userId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(userId));
+            return _solarDbContext.Users.Any(u => u.UserId == userId);
+        }
 
         public void UpdateCompetition(int competitionId, Competition competition)
         {
