@@ -37,7 +37,7 @@ namespace SolarApp.Controllers
             return Ok(_mapper.Map<IEnumerable<ResultDTO>>(resultsFromRepo));
         }
 
-        [HttpGet("{resultId}")]
+        [HttpGet("{resultId}", Name = "GetResultForBand")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<ResultDTO> GetResultFromCompetition(int resultId, int competitionId)
@@ -50,6 +50,19 @@ namespace SolarApp.Controllers
                 return NotFound();
 
             return Ok(_mapper.Map<ResultDTO>(resultFromRepo));
+        }
+
+        [HttpPost]
+        public ActionResult<ResultDTO> CreateResultForCompetition(int competitionId,[FromBody] ResultForCreatingDTO result)
+        {
+            if (!_solarDbRepository.CompetitionExists(competitionId))
+                return NotFound();
+            var resultEntity = _mapper.Map<Entities.Result>(result);
+            _solarDbRepository.AddResult(competitionId, resultEntity);
+            _solarDbRepository.Save();
+
+            var resultToReturn = _mapper.Map<ResultDTO>(resultEntity);
+            return CreatedAtRoute("GetResultForBand", new { competitionId = competitionId, resultId = resultToReturn.ResultId }, resultToReturn);
         }
 
 

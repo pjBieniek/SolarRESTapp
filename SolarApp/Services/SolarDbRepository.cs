@@ -1,4 +1,5 @@
-﻿using SolarApp.DbContexts;
+﻿using Microsoft.EntityFrameworkCore;
+using SolarApp.DbContexts;
 using SolarApp.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,13 +16,10 @@ namespace SolarApp.Services
         {
             _solarDbContext = context ?? throw new ArgumentNullException(nameof(context));
         }
-        public void AddCompetition(string title, Competition competition)
+        public void AddCompetition(Competition competition)
         {
-            if (title == string.Empty)
-                throw new ArgumentNullException(nameof(title));
             if (competition == null)
                 throw new ArgumentNullException(nameof(competition));
-            competition.CompetitionTitle = title;
             _solarDbContext.Competitions.Add(competition);
         }
 
@@ -29,6 +27,17 @@ namespace SolarApp.Services
         {
             if (result == null)
                 throw new ArgumentNullException(nameof(result));
+            _solarDbContext.Results.Add(result);
+        }
+
+        public void AddResult(int competitionId, Result result)
+        {
+            int intValue;
+            if (!int.TryParse(competitionId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(competitionId));
+            if (result == null)
+                throw new ArgumentNullException(nameof(result));
+            result.CompetitionId = competitionId;
             _solarDbContext.Results.Add(result);
         }
 
@@ -73,11 +82,12 @@ namespace SolarApp.Services
             _solarDbContext.Users.Add(user);
         }
 
-        public void DeleteCompetition(Competition competition)
+        public Competition DeleteCompetition(int id)
         {
-            if (competition == null)
-                throw new ArgumentNullException(nameof(competition));
-            _solarDbContext.Competitions.Remove(competition);
+            Competition competition = _solarDbContext.Competitions.FirstOrDefault(c => c.CompetitionId == id);
+            if (competition != null)
+                _solarDbContext.Competitions.Remove(competition);
+            return competition;
         }
 
         public void DeleteResult(Result result)
@@ -193,15 +203,15 @@ namespace SolarApp.Services
 
         public IEnumerable<User> GetUsers()
         {
-            return _solarDbContext.Users.OrderBy(u => u.UserRoles).ToList();
+            return _solarDbContext.Users.ToList();
         }
 
         public bool CompetitionExists(int competitionId)
         {
-            var competitionById = _solarDbContext.Competitions.Find(competitionId);
-            if (competitionById == null)
-                return false;
-            return true;
+            int intValue;
+            if (!int.TryParse(competitionId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(competitionId));
+            return _solarDbContext.Competitions.Any(c => c.CompetitionId == competitionId);
         }
 
         //public bool ResultExists(Result result)
@@ -229,10 +239,14 @@ namespace SolarApp.Services
         //    throw new NotImplementedException();
         //}
 
-        //public void UpdateCompetition(Competition competition)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void UpdateCompetition(int competitionId, Competition competition)
+        {
+            var competitionEntity = GetCompetition(competitionId);
+            competitionEntity.CompetitionTitle = competition.CompetitionTitle;
+            competitionEntity.CompetitionDescription = competition.CompetitionDescription;
+            competitionEntity.CompetitionUrlAddress = competition.CompetitionUrlAddress;
+            competitionEntity.CompetitionDate = competition.CompetitionDate;
+        }
 
         //public void UpdateResult(Result result)
         //{
