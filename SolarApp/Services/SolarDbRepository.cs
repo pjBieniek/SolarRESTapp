@@ -203,7 +203,7 @@ namespace SolarApp.Services
 
         public IEnumerable<User> GetUsers()
         {
-            return _solarDbContext.Users.OrderBy(u => u.UserRoles).ToList();
+            return _solarDbContext.Users.ToList();
         }
 
         public bool CompetitionExists(int competitionId)
