@@ -12,6 +12,9 @@ using SolarApp.Services;
 using SolarApp.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication;
+using SolarApp.Handlers;
 
 namespace SolarApp
 {
@@ -44,8 +47,13 @@ namespace SolarApp
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            // for basic authentication:
+            //services.AddAuthentication("BasicAuthentication")
+            //    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             // Register the Swagger generator
             services.AddSwaggerGen(x =>
             {
@@ -82,6 +90,9 @@ namespace SolarApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
