@@ -72,13 +72,10 @@ namespace SolarApp.Services
             _solarDbContext.Teams.Add(team);
         }
 
-        public void AddUser(string fullName, User user)
+        public void AddUser(User user)
         {
-            if (fullName == string.Empty)
-                throw new ArgumentNullException(nameof(fullName));
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
-            user.UserFullName = fullName;
             _solarDbContext.Users.Add(user);
         }
 
@@ -118,11 +115,12 @@ namespace SolarApp.Services
             _solarDbContext.Teams.Remove(team);
         }
 
-        public void DeleteUser(User user)
+        public User DeleteUser(int id)
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
-            _solarDbContext.Users.Remove(user);
+            User user = _solarDbContext.Users.FirstOrDefault(u => u.UserId == id);
+            if (user != null)
+                _solarDbContext.Users.Remove(user);
+            return user;
         }
 
         public Competition GetCompetition(int competitionId)
@@ -234,10 +232,13 @@ namespace SolarApp.Services
         //    throw new NotImplementedException();
         //}
 
-        //public bool UserExists(User user)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public bool UserExists(int userId)
+        {
+            int intValue;
+            if (!int.TryParse(userId.ToString(), out intValue))
+                throw new ArgumentNullException(nameof(userId));
+            return _solarDbContext.Users.Any(u => u.UserId == userId);
+        }
 
         public void UpdateCompetition(int competitionId, Competition competition)
         {
@@ -268,10 +269,13 @@ namespace SolarApp.Services
         //    throw new NotImplementedException();
         //}
 
-        //public void UpdateUser(User user)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void UpdateUser(int userId, User user)
+        {
+            var userEntity = GetUser(userId);
+            userEntity.UserFullName = user.UserFullName;
+            userEntity.UserEmail = user.UserEmail;
+            userEntity.UserPassword = user.UserPassword;
+        }
 
         public bool Save()
         {

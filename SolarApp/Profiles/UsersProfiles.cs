@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SolarApp.Profiles
 {
@@ -10,7 +6,11 @@ namespace SolarApp.Profiles
     {
         public UsersProfiles()
         {
+            string pass = "12345";
             CreateMap<Entities.User, Models.UserDTO>();
+            CreateMap<Models.UserForCreatingDTO, Entities.User>()
+                .ForMember(u => u.UserPassword, opt => opt.MapFrom(newPassword => pass)); //TODO: password generator
+            CreateMap<Models.UserForUpdateDTO, Entities.User>();
         }
     }
 }
