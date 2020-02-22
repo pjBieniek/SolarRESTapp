@@ -268,10 +268,13 @@ namespace SolarApp.Services
         //    throw new NotImplementedException();
         //}
 
-        //public void UpdateUser(User user)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void UpdateUser(int userId, User user)
+        {
+            var userEntity = GetUser(userId);
+            userEntity.UserFullName = user.UserFullName;
+            userEntity.UserEmail = user.UserEmail;
+            userEntity.UserPassword = user.UserPassword;
+        }
 
         public bool Save()
         {

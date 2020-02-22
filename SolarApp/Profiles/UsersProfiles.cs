@@ -10,6 +10,7 @@ namespace SolarApp.Profiles
             CreateMap<Entities.User, Models.UserDTO>();
             CreateMap<Models.UserForCreatingDTO, Entities.User>()
                 .ForMember(u => u.UserPassword, opt => opt.MapFrom(newPassword => pass)); //TODO: password generator
+            CreateMap<Models.UserForUpdateDTO, Entities.User>();
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SolarApp.Entities;
 using SolarApp.Models;
 using SolarApp.Services;
@@ -58,5 +59,26 @@ namespace SolarApp.Controllers
             return CreatedAtRoute("GetUser", new { userId = userToReturn.UserId }, userToReturn);
         }
 
+        [HttpPut("{id}")]
+        public ActionResult PutCompetitions(int id, [FromBody] UserForUpdateDTO user)
+        {
+            if (!_solarDbRepository.UserExists(id))
+                return NotFound();
+
+            var userEntity = _mapper.Map<Entities.User>(user);
+
+            _solarDbRepository.UpdateUser(id, userEntity);
+
+            try
+            {
+                _solarDbRepository.Save();
+                var updated = _mapper.Map<UserDTO>(_solarDbRepository.GetUser(id));
+                return Ok(updated);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return BadRequest();
+            }
+        }
     }
 }

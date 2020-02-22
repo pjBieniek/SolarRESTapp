@@ -11,7 +11,7 @@ namespace SolarApp.Services
         IEnumerable<User> GetUsers();
         User GetUser(int userId);
         void AddUser(User user);
-        //void UpdateUser(User user);
+        void UpdateUser(int userId, User user);
         void DeleteUser(User user);
 
         IEnumerable<Session> GetSessions();
