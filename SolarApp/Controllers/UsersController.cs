@@ -80,5 +80,15 @@ namespace SolarApp.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<UserDTO> DeleteUser(int id)
+        {
+            if (!_solarDbRepository.UserExists(id))
+                return NotFound();
+            var userForDelete = _solarDbRepository.DeleteUser(id);
+            _solarDbRepository.Save();
+            return Ok(_mapper.Map<UserDTO>(userForDelete));
+        }
     }
 }

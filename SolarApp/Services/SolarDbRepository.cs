@@ -115,11 +115,12 @@ namespace SolarApp.Services
             _solarDbContext.Teams.Remove(team);
         }
 
-        public void DeleteUser(User user)
+        public User DeleteUser(int id)
         {
-            if (user == null)
-                throw new ArgumentNullException(nameof(user));
-            _solarDbContext.Users.Remove(user);
+            User user = _solarDbContext.Users.FirstOrDefault(u => u.UserId == id);
+            if (user != null)
+                _solarDbContext.Users.Remove(user);
+            return user;
         }
 
         public Competition GetCompetition(int competitionId)
