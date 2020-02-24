@@ -281,5 +281,14 @@ namespace SolarApp.Services
         {
             return (_solarDbContext.SaveChanges() > 0);
         }
+
+        public User LoginUser(User user)
+        {
+            user = _solarDbContext.Users
+                .Where(u => u.UserEmail == user.UserEmail
+                    && u.UserPassword == user.UserPassword)
+                .FirstOrDefault();
+            return user;
+        }
     }
 }

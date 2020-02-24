@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SolarApp.Models;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace SolarApp.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/competitions/{competitionId}/results")]
     public class ResultsController : ControllerBase
