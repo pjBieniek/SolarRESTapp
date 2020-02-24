@@ -12,6 +12,13 @@ using SolarApp.Services;
 using SolarApp.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication;
+using SolarApp.Handlers;
+using SolarApp.Models;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SolarApp
 {
@@ -39,13 +46,43 @@ namespace SolarApp
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
             },ServiceLifetime.Transient);
 
+            var jwtSection = Configuration.GetSection("JWTSettings");
+            services.Configure<JWTSettings>(jwtSection);
+
+            //validate token which has been sent by clients
+            var appSettings = jwtSection.Get<JWTSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            // for basic authentication:
+            //services.AddAuthentication("BasicAuthentication")
+            //    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
+
             // Register the Swagger generator
             services.AddSwaggerGen(x =>
             {
@@ -82,6 +119,9 @@ namespace SolarApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

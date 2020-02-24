@@ -10,9 +10,10 @@ namespace SolarApp.Services
     {
         IEnumerable<User> GetUsers();
         User GetUser(int userId);
-        void AddUser(string fullName, User user);
-        //void UpdateUser(User user);
-        void DeleteUser(User user);
+        void AddUser(User user);
+        void UpdateUser(int userId, User user);
+        User DeleteUser(int userId);
+        User LoginUser(User user);
 
         IEnumerable<Session> GetSessions();
         Session GetSession(int sessionId);
@@ -45,7 +46,7 @@ namespace SolarApp.Services
         //void UpdateRole(Role role);
         void DeleteRole(Role role);
 
-        //bool UserExists(User user);
+        bool UserExists(int userId);
         //bool SessionExists(Session session);
         //bool TeamExists(Team team);
         bool CompetitionExists(int competitionId);

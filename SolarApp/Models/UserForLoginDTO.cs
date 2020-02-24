@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace SolarApp.Models
 {
-    public class UserDTO
+    public class UserForLoginDTO
     {
-        public int UserId { get; set; }
         public string UserFullName { get; set; }
         public string UserEmail { get; set; }
-        //public string UserPassword { get; set; }
+        public string UserPassword { get; set; }
     }
 }

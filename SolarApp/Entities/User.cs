@@ -20,6 +20,6 @@ namespace SolarApp.Entities
         public Session Session { get; set; }
         //public int SessionId { get; set; }
 
-        public IList<UserRole> UserRoles { get; set; }
+        public IList<UserRole> UserRoles { get; set; } = new List<UserRole>();
     }
 }
