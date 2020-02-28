@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SolarApp", "SolarApp\SolarApp.csproj", "{DD2A46C0-1368-4795-B259-D93F7D278692}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestSolarAPI", "NUnitTestSolarAPI\NUnitTestSolarAPI.csproj", "{EF23162A-88A6-471D-9562-7F628422AB67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTestSolarAPI", "NUnitTestSolarAPI\NUnitTestSolarAPI.csproj", "{EF23162A-88A6-471D-9562-7F628422AB67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
