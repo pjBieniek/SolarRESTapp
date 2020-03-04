@@ -15,7 +15,7 @@ namespace NUnitTestSolarAPI.Services
         public void AddCompetition_Writes_to_Database()
         {
             var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db")
+                .UseInMemoryDatabase("Test db1")
                 .Options;
 
             using (var context = new SolarDbContext(options))
@@ -36,7 +36,7 @@ namespace NUnitTestSolarAPI.Services
         public void AddResult_Writest_to_Database()
         {
             var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db")
+                .UseInMemoryDatabase("Test db2")
                 .Options;
 
             using (var context = new SolarDbContext(options))
@@ -57,7 +57,7 @@ namespace NUnitTestSolarAPI.Services
         public void AddUser_Writes_to_Database()
         {
             var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db")
+                .UseInMemoryDatabase("Test db3")
                 .Options;
 
             using (var context = new SolarDbContext(options))
@@ -78,7 +78,7 @@ namespace NUnitTestSolarAPI.Services
         public void DeleteCompetition_Deletes_From_Database()
         {
             var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db")
+                .UseInMemoryDatabase("Test db4")
                 .Options;
 
             using (var context = new SolarDbContext(options))
@@ -103,10 +103,10 @@ namespace NUnitTestSolarAPI.Services
         }
 
         [Test]
-        public void GetCompetition_Returns_From_Database()
+        public void GetCompetition_Returns_Competition_From_Database()
         {
             var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db")
+                .UseInMemoryDatabase("Test db5")
                 .Options;
 
             using (var context = new SolarDbContext(options))
@@ -129,7 +129,7 @@ namespace NUnitTestSolarAPI.Services
         public void GetCompetitions_ReturnsCollection_From_Database()
         {
             var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db")
+                .UseInMemoryDatabase("Test db6")
                 .Options;
 
             using (var context = new SolarDbContext(options))

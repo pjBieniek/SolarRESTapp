@@ -1,28 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
+﻿using FluentAssertions;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using SolarApp;
-using SolarApp.DbContexts;
-using SolarApp.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
+
+using System.Net;
+
 using System.Threading.Tasks;
 
 namespace NUnitTestSolarAPI.Controllers
 {
-    class CompetitionsControllerTests
+    class CompetitionsControllerTests : IntegrationTest
     {
-        //private readonly HttpClient _client;
+        [Test]
+        public async Task GetCompetitions_Returns_Nothing_From_Empty_Repo()
+        {
+            var response = await TestClient.GetAsync("api/competitions");
 
-        //public CompetitionsControllerTests()
-        //{
-        //    var appFactory = new WebApplicationFactory<Startup>();
-        //    _client = appFactory.CreateClient();
-        //}
-
-        
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+            //response.Content.ReadAsStringAsync().Result.Should().Be("[]");
+            var responseData = response.Content.ReadAsStringAsync().Result;
+            Assert.AreEqual("[]", responseData);
+        }
     }
 }
