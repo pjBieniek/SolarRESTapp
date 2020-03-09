@@ -1,13 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
-using SolarApp.DbContexts;
+using SolarApp.DatabaseCreation.DbContexts;
 using SolarApp.Services;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
-namespace NUnitTestSolarAPI.Services
+namespace SolarApp.Tests.Services
 {
     class SolarDbRepositoryTests
     {
@@ -21,7 +18,7 @@ namespace NUnitTestSolarAPI.Services
             using (var context = new SolarDbContext(options))
             {
                 var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.Entities.Competition { CompetitionTitle = "test", CompetitionDescription = "test"});
+                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionTitle = "test", CompetitionDescription = "test" });
                 context.SaveChanges();
             }
 
@@ -42,7 +39,7 @@ namespace NUnitTestSolarAPI.Services
             using (var context = new SolarDbContext(options))
             {
                 var service = new SolarDbRepository(context);
-                service.AddResult(99, new SolarApp.Entities.Result { ResultPosition = 1 });
+                service.AddResult(99, new SolarApp.DatabaseCreation.Entities.Result { ResultPosition = 1 });
                 context.SaveChanges();
             }
 
@@ -63,7 +60,7 @@ namespace NUnitTestSolarAPI.Services
             using (var context = new SolarDbContext(options))
             {
                 var service = new SolarDbRepository(context);
-                service.AddUser(new SolarApp.Entities.User { UserEmail = "test@mail", UserFullName = "test", UserPassword = "password" });
+                service.AddUser(new SolarApp.DatabaseCreation.Entities.User { UserEmail = "test@mail", UserFullName = "test", UserPassword = "password" });
                 context.SaveChanges();
             }
 
@@ -84,10 +81,10 @@ namespace NUnitTestSolarAPI.Services
             using (var context = new SolarDbContext(options))
             {
                 var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.Entities.Competition { CompetitionId = 1, CompetitionTitle = "test", CompetitionDescription = "test" });
+                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = "test", CompetitionDescription = "test" });
                 context.SaveChanges();
             }
-            
+
 
             using (var context = new SolarDbContext(options))
             {
@@ -112,7 +109,7 @@ namespace NUnitTestSolarAPI.Services
             using (var context = new SolarDbContext(options))
             {
                 var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.Entities.Competition { CompetitionId = 1, CompetitionTitle = "testGet", CompetitionDescription = "test" });
+                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = "testGet", CompetitionDescription = "test" });
                 context.SaveChanges();
             }
 
@@ -122,7 +119,7 @@ namespace NUnitTestSolarAPI.Services
                 var service = new SolarDbRepository(context);
                 var competition = service.GetCompetition(1);
                 Assert.AreEqual("testGet", competition.CompetitionTitle);
-            }            
+            }
         }
 
         [Test]
@@ -135,8 +132,8 @@ namespace NUnitTestSolarAPI.Services
             using (var context = new SolarDbContext(options))
             {
                 var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.Entities.Competition { CompetitionId = 1, CompetitionTitle = "testGet", CompetitionDescription = "test" });
-                service.AddCompetition(new SolarApp.Entities.Competition { CompetitionId = 2, CompetitionTitle = "testGet2", CompetitionDescription = "test2" });
+                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = "testGet", CompetitionDescription = "test" });
+                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 2, CompetitionTitle = "testGet2", CompetitionDescription = "test2" });
                 context.SaveChanges();
             }
 

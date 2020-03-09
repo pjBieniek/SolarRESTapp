@@ -6,12 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using SolarApp;
 using System.Linq;
-using SolarApp.DbContexts;
+using SolarApp.DatabaseCreation.DbContexts;
 using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
-namespace NUnitTestSolarAPI
+namespace SolarApp.Tests
 {
     public class IntegrationTest
     {
@@ -31,17 +31,17 @@ namespace NUnitTestSolarAPI
 
             //serviceProvider = services.BuildServiceProvider();
 
-           var appFactory = new WebApplicationFactory<Startup>()
-                .WithWebHostBuilder(builder =>
-                {
-                    builder.ConfigureServices(services =>
-                    {
-                        var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<SolarDbContext>));
-                        if (descriptor != null)
-                            services.Remove(descriptor);
-                        services.AddDbContext<SolarDbContext>(options => { options.UseInMemoryDatabase("Test db"); });
-                    });
-                });
+            var appFactory = new WebApplicationFactory<Startup>()
+                 .WithWebHostBuilder(builder =>
+                 {
+                     builder.ConfigureServices(services =>
+                     {
+                         var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(DbContextOptions<SolarDbContext>));
+                         if (descriptor != null)
+                             services.Remove(descriptor);
+                         services.AddDbContext<SolarDbContext>(options => { options.UseInMemoryDatabase("Test db"); });
+                     });
+                 });
 
             TestClient = appFactory.CreateClient();
         }
@@ -57,7 +57,7 @@ namespace NUnitTestSolarAPI
         //{
         //    var response = await TestClient.PostAsync("api/users/login", 
         //        {
-                        
+
         //        });
         //}
     }
