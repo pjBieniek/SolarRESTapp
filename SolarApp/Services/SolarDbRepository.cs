@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SolarApp.DbContexts;
-using SolarApp.Entities;
+using SolarApp.DatabaseCreation.DbContexts;
+using SolarApp.DatabaseCreation.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -133,7 +133,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Competition> GetCompetitions()
         {
-            return _solarDbContext.Competitions.OrderBy(c => c.CompetitionTitle).ToList(); 
+            return _solarDbContext.Competitions.OrderBy(c => c.CompetitionTitle).ToList();
         }
 
         public Result GetResult(int resultId, int competitionId)
@@ -150,7 +150,7 @@ namespace SolarApp.Services
 
         public IEnumerable<Result> GetResults(int competitionId)
         {
-            return _solarDbContext.Results.Where(r => r.CompetitionId == competitionId).ToList(); 
+            return _solarDbContext.Results.Where(r => r.CompetitionId == competitionId).ToList();
         }
 
         public Role GetRole(string title)

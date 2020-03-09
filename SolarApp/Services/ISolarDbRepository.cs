@@ -1,4 +1,4 @@
-﻿using SolarApp.Entities;
+﻿using SolarApp.DatabaseCreation.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolarApp.Entities
+namespace SolarApp.DatabaseCreation.Entities
 {
     public class UserRole
     {
