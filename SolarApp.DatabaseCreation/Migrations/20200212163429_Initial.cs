@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace SolarApp.Migrations
+namespace SolarApp.DatabaseCreation.Migrations
 {
     public partial class Initial : Migration
     {

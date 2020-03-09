@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,12 +8,9 @@ using SolarApp.Options;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using SolarApp.Services;
-using SolarApp.DbContexts;
+using SolarApp.DatabaseCreation.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authentication;
-using SolarApp.Handlers;
 using SolarApp.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,10 +37,10 @@ namespace SolarApp
             }).AddXmlDataContractSerializerFormatters();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ISolarDbRepository, SolarDbRepository>();
-            services.AddDbContext<SolarDbContext>(options => 
+            services.AddDbContext<SolarDbContext>(options =>
             {
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
-            },ServiceLifetime.Transient);
+            }, ServiceLifetime.Transient);
 
             var jwtSection = Configuration.GetSection("JWTSettings");
             services.Configure<JWTSettings>(jwtSection);
@@ -109,7 +105,7 @@ namespace SolarApp
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             // route: https://localhost:44395/swagger/index.html
-            app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute;});
+            app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute; });
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.

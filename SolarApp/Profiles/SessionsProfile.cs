@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SolarApp.DatabaseCreation.Entities;
 
 namespace SolarApp.Profiles
 {
@@ -6,7 +7,7 @@ namespace SolarApp.Profiles
     {
         public SessionsProfile()
         {
-            CreateMap<Entities.Session, Models.SessionDTO>();
+            CreateMap<Session, Models.SessionDTO>();
         }
     }
 }

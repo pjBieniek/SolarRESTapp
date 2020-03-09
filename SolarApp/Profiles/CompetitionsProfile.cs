@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using SolarApp.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SolarApp.DatabaseCreation.Entities;
 
 namespace SolarApp.Profiles
 {
@@ -11,11 +8,11 @@ namespace SolarApp.Profiles
     {
         public CompetitionsProfile()
         {
-            CreateMap<Entities.Competition, Models.CompetitionDTO>()
+            CreateMap<Competition, Models.CompetitionDTO>()
                 .ForMember(
                     c => c.Date,
                     option => option.MapFrom(src => $"{src.CompetitionDate.ToString("d MMM yyyy")} ({src.CompetitionDate.GetDays()})"));
-            CreateMap<Models.CompetitionForCreatingDTO, Entities.Competition>();
+            CreateMap<Models.CompetitionForCreatingDTO, Competition>();
 
         }
     }

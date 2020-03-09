@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SolarApp.Entities;
+using SolarApp.DatabaseCreation.Entities;
 using SolarApp.Helpers;
 using SolarApp.Models;
 using SolarApp.Services;
@@ -51,7 +51,7 @@ namespace SolarApp.Controllers
         [HttpPost]
         public ActionResult<CompetitionDTO> CreateCompetition([FromBody] CompetitionForCreatingDTO competition)
         {
-            var competitionEntity = _mapper.Map<Entities.Competition>(competition);
+            var competitionEntity = _mapper.Map<Competition>(competition);
             _solarDbRepository.AddCompetition(competitionEntity);
             _solarDbRepository.Save();
 
@@ -65,9 +65,9 @@ namespace SolarApp.Controllers
         {
             if (!_solarDbRepository.CompetitionExists(id))
                 return NotFound();
-            
-            var competitionEntity = _mapper.Map<Entities.Competition>(competition);
-            
+
+            var competitionEntity = _mapper.Map<Competition>(competition);
+
             _solarDbRepository.UpdateCompetition(id, competitionEntity);
 
             try
