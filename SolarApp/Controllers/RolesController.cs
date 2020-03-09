@@ -9,7 +9,7 @@ using SolarApp.DatabaseCreation.Entities;
 using SolarApp.Data.Models;
 using SolarApp.Data.Services;
 
-namespace SolarApp.Controllers
+namespace SolarApp.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

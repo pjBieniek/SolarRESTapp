@@ -10,7 +10,7 @@ using SolarApp.DatabaseCreation.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolarApp.Controllers
+namespace SolarApp.API.Controllers
 {
     [Authorize]
     [ApiController]

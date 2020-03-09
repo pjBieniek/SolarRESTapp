@@ -16,7 +16,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace SolarApp
+namespace SolarApp.API
 {
     public class Startup
     {

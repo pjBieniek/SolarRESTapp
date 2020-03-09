@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolarApp.Controllers
+namespace SolarApp.API.Controllers
 {
     [ApiController]
     [Route("api/competitions")]
