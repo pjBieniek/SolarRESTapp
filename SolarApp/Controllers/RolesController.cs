@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SolarApp.Entities;
+using SolarApp.DatabaseCreation.Entities;
 using SolarApp.Models;
 using SolarApp.Services;
 

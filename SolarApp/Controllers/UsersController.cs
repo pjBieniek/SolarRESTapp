@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SolarApp.Entities;
+using SolarApp.DatabaseCreation.Entities;
 using SolarApp.Models;
 using SolarApp.Services;
 
@@ -59,7 +59,7 @@ namespace SolarApp.Controllers
         [HttpPost]
         public ActionResult<UserDTO> CreateUser([FromBody] UserForCreatingDTO user)
         {
-            var userEntity = _mapper.Map<Entities.User>(user);
+            var userEntity = _mapper.Map<User>(user);
             _solarDbRepository.AddUser(userEntity);
             _solarDbRepository.Save();
 
@@ -74,7 +74,7 @@ namespace SolarApp.Controllers
             if (!_solarDbRepository.UserExists(id))
                 return NotFound();
 
-            var userEntity = _mapper.Map<Entities.User>(user);
+            var userEntity = _mapper.Map<User>(user);
 
             _solarDbRepository.UpdateUser(id, userEntity);
 
@@ -103,7 +103,7 @@ namespace SolarApp.Controllers
         [HttpGet("Login")]
         public ActionResult<UserDTO> Login([FromBody] UserForLoginDTO user)
         {
-            var userEntity = _mapper.Map<Entities.User>(user);
+            var userEntity = _mapper.Map<User>(user);
             userEntity = _solarDbRepository.LoginUser(userEntity);
             var userDto = _mapper.Map<UserDTO>(userEntity);
 

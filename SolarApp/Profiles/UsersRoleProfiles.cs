@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SolarApp.DatabaseCreation.Entities;
 
 namespace SolarApp.Profiles
 {
@@ -10,7 +7,7 @@ namespace SolarApp.Profiles
     {
         public UsersRoleProfiles()
         {
-            CreateMap<Entities.UserRole, Models.UserRoleDTO>();
+            CreateMap<UserRole, Models.UserRoleDTO>();
         }
     }
 }

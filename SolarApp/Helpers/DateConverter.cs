@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace SolarApp.Helpers
 {
@@ -20,7 +18,7 @@ namespace SolarApp.Helpers
             {
                 outPut = $"{daysRemain} days to kick off";
             }
-               
+
             return outPut;
         }
     }

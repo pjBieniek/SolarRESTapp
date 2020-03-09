@@ -6,6 +6,7 @@ using SolarApp.Models;
 using SolarApp.Services;
 using System;
 using System.Collections.Generic;
+using SolarApp.DatabaseCreation.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -55,11 +56,11 @@ namespace SolarApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ResultDTO> CreateResultForCompetition(int competitionId,[FromBody] ResultForCreatingDTO result)
+        public ActionResult<ResultDTO> CreateResultForCompetition(int competitionId, [FromBody] ResultForCreatingDTO result)
         {
             if (!_solarDbRepository.CompetitionExists(competitionId))
                 return NotFound();
-            var resultEntity = _mapper.Map<Entities.Result>(result);
+            var resultEntity = _mapper.Map<Result>(result);
             _solarDbRepository.AddResult(competitionId, resultEntity);
             _solarDbRepository.Save();
 

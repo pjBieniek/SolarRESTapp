@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolarApp.Entities
+namespace SolarApp.DatabaseCreation.Entities
 {
     public class Session
     {
@@ -15,7 +15,7 @@ namespace SolarApp.Entities
 
         public int UserId { get; set; }
         public User User { get; set; }
-        
-        
+
+
     }
 }

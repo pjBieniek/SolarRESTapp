@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SolarApp.DatabaseCreation.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,8 @@ namespace SolarApp.Profiles
     {
         public ResultsProfile()
         {
-            CreateMap<Entities.Result, Models.ResultDTO>();
-            CreateMap<Models.ResultForCreatingDTO, Entities.Result>();
+            CreateMap<Result, Models.ResultDTO>();
+            CreateMap<Models.ResultForCreatingDTO, Result>();
         }
     }
 }

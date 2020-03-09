@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SolarApp.Entities;
+using SolarApp.DatabaseCreation.Entities;
+using SolarApp.DatabaseCreation.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SolarApp.DbContexts
+namespace SolarApp.DatabaseCreation.DbContexts
 {
     public class SolarDbContext : DbContext
     {
@@ -95,7 +96,7 @@ namespace SolarApp.DbContexts
                     CompetitionId = 2,
                     TeamId = 1
                 });
-            
+
             modelBuilder.Entity<Role>()
                 .HasData(
                 new Role
