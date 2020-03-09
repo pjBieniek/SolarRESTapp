@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using SolarApp.DatabaseCreation.DbContexts;
-using SolarApp.Services;
+using SolarApp.Data.Services;
 using System.Linq;
 
 namespace SolarApp.Tests.Services

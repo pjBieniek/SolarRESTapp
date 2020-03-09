@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SolarApp.Models;
-using SolarApp.Services;
+using SolarApp.Data.Models;
+using SolarApp.Data.Services;
 using System;
 using System.Collections.Generic;
 using SolarApp.DatabaseCreation.Entities;

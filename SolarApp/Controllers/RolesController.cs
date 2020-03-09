@@ -6,8 +6,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SolarApp.DatabaseCreation.Entities;
-using SolarApp.Models;
-using SolarApp.Services;
+using SolarApp.Data.Models;
+using SolarApp.Data.Services;
 
 namespace SolarApp.Controllers
 {
