@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using SolarApp;
 using System.Linq;
 using SolarApp.DatabaseCreation.DbContexts;
 using System;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using SolarApp.API;
 
 namespace SolarApp.Tests
 {

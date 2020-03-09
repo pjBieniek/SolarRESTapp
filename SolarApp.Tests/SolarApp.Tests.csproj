@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SolarApp.API\SolarApp.API.csproj" />
     <ProjectReference Include="..\SolarApp.Data\SolarApp.Data.csproj" />
     <ProjectReference Include="..\SolarApp\SolarApp.API.csproj" />
   </ItemGroup>

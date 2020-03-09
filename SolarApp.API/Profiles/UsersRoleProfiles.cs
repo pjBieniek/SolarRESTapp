@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using SolarApp.DatabaseCreation.Entities;
+using SolarApp.Data.Models;
 
-namespace SolarApp.Data.Profiles
+namespace SolarApp.API.Profiles
 {
     public class UsersRoleProfiles : Profile
     {
         public UsersRoleProfiles()
         {
-            CreateMap<UserRole, Models.UserRoleDTO>();
+            CreateMap<UserRole, UserRoleDTO>();
         }
     }
 }
