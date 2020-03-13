@@ -9,7 +9,6 @@ export class FetchData extends Component {
   }
 
   componentDidMount() {
-    // this.populateData();
     fetch('https://localhost:44395/api/influx/databases/telegraf',  {method: 'GET'})
       .then(res => res.json())
       .then(json => {
@@ -20,10 +19,6 @@ export class FetchData extends Component {
           values: json[0].values,
         })
       });
-    // const url = "https://localhost:44395/api/influx/databases/telegraf";
-    // const response = await fetch(url);
-    // const data = await response.json()[0];
-    // console.log(data[0]);
   }
 
   static renderData(columns, values) {
@@ -61,12 +56,6 @@ export class FetchData extends Component {
           )}
         </tbody>
       </table>
-      // <ul>
-      //   {/* {data.map(item => (
-      //     <li key={item[0]}>{item[0]}</li>
-      //   ))}; */}
-      //   Data has been loaded {data}
-      // </ul>
       
     );
   }
@@ -85,12 +74,6 @@ export class FetchData extends Component {
       </div>
     );
   }
-
-  // async populateData() {
-  //   const response = await fetch('https://localhost:44395/api/influx/databases/telegraf');
-  //   const data = await response.json();
-  //   this.setState({ influx: data, loading: false });
-  // }
 
   convertDateSimple(timesTamp) {
     let myDate = new Date(timesTamp*1000);
