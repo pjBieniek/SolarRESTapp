@@ -45,6 +45,7 @@ namespace SolarApp.API.Controllers
             var series = response.ToList();
             var list = series[0].Values;
             // Extract the first data from the collection
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             var info_model = list.FirstOrDefault();
 
             return series;

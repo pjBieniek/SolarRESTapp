@@ -67,6 +67,8 @@ namespace SolarApp.API
                 };
             });
 
+            services.AddCors();
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -95,6 +97,11 @@ namespace SolarApp.API
             app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute; });
 
             app.UseSwaggerUI(option => { option.SwaggerEndpoint(swaggerOptions.UiEndPoint, swaggerOptions.Desription); });
+
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:3000").AllowAnyMethod()
+            );
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
