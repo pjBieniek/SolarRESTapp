@@ -9,7 +9,7 @@ export class FetchData extends Component {
   }
 
   componentDidMount() {
-    fetch('https://localhost:44395/api/influx/databases/telegraf',  {method: 'GET'})
+    fetch('https://localhost:44395/api/influx/databases/telegrafAllData',  {method: 'GET'})
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -23,7 +23,7 @@ export class FetchData extends Component {
 
   static renderData(columns, values) {
     return (
-      
+      // do przejrzenia: react-table, react-table component
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>

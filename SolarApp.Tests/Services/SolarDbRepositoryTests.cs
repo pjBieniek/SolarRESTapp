@@ -3,148 +3,103 @@ using NUnit.Framework;
 using SolarApp.DatabaseCreation.DbContexts;
 using SolarApp.Data.Services;
 using System.Linq;
+using System.Collections;
 
 namespace SolarApp.Tests.Services
 {
-    class SolarDbRepositoryTests
+    class SolarDbRepositoryTests : RepositoryTests
     {
         [Test]
         public void AddCompetition_Writes_to_Database()
         {
-            var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db1")
-                .Options;
+            //arrange
+            int competitionsBeforeTestCount = context.Competitions.Count();
+            
+            //act
+            repo.AddCompetition(new DatabaseCreation.Entities.Competition { CompetitionId=99, CompetitionTitle = "test", CompetitionDescription = "test" });
+            context.SaveChanges();
+            string title = repo.GetCompetition(99).CompetitionTitle;
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionTitle = "test", CompetitionDescription = "test" });
-                context.SaveChanges();
-            }
-
-            using (var context = new SolarDbContext(options))
-            {
-                Assert.AreEqual(1, context.Competitions.Count());
-                Assert.AreEqual("test", context.Competitions.Single().CompetitionTitle);
-            }
+            //assert
+            Assert.AreEqual(competitionsBeforeTestCount + 1, context.Competitions.Count());
+            Assert.AreEqual("test", title);
         }
 
         [Test]
         public void AddResult_Writest_to_Database()
         {
-            var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db2")
-                .Options;
+            //arrange
+            int resultsBeforeTestCount = context.Results.Count();
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.AddResult(99, new SolarApp.DatabaseCreation.Entities.Result { ResultPosition = 1 });
-                context.SaveChanges();
-            }
+            //act
+            repo.AddResult(99, new DatabaseCreation.Entities.Result {ResultId=99, ResultPosition = 1 });
+            context.SaveChanges();
+            int position = repo.GetResult(99, 99).ResultPosition;
 
-            using (var context = new SolarDbContext(options))
-            {
-                Assert.AreEqual(1, context.Results.Count());
-                Assert.AreEqual(1, context.Results.Single().ResultPosition);
-            }
+            //assert
+            Assert.AreEqual(resultsBeforeTestCount + 1, context.Results.Count());
+            Assert.AreEqual(1, position);
         }
 
         [Test]
         public void AddUser_Writes_to_Database()
-        {
-            var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db3")
-                .Options;
+        { 
+            //arrange
+            int usersBeforeTestCount = context.Users.Count();
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.AddUser(new SolarApp.DatabaseCreation.Entities.User { UserEmail = "test@mail", UserFullName = "test", UserPassword = "password" });
-                context.SaveChanges();
-            }
+            //act
+            repo.AddUser(new SolarApp.DatabaseCreation.Entities.User { UserId=99, UserEmail = "test@mail", UserFullName = "test", UserPassword = "password" });
+            context.SaveChanges();
+            string email = repo.GetUser(99).UserEmail;
 
-            using (var context = new SolarDbContext(options))
-            {
-                Assert.AreEqual(1, context.Users.Count());
-                Assert.AreEqual("test@mail", context.Users.Single().UserEmail);
-            }
+            //assert
+            Assert.AreEqual(usersBeforeTestCount + 1, context.Users.Count());
+            Assert.AreEqual("test@mail", email);
         }
 
         [Test]
         public void DeleteCompetition_Deletes_From_Database()
         {
-            var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db4")
-                .Options;
+            //arrange
+            int competitionsBeforeTestCount = context.Competitions.Count();
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = "test", CompetitionDescription = "test" });
-                context.SaveChanges();
-            }
+            //act
+            repo.AddCompetition(new DatabaseCreation.Entities.Competition { CompetitionId = 2, CompetitionTitle = "test2", CompetitionDescription = "test2" });
+            context.SaveChanges();
+            repo.DeleteCompetition(2);
+            context.SaveChanges();
 
-
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.DeleteCompetition(1);
-                context.SaveChanges();
-            }
-
-            using (var context = new SolarDbContext(options))
-            {
-                Assert.AreEqual(0, context.Competitions.Count());
-            }
+            //assert
+            Assert.AreEqual(competitionsBeforeTestCount, context.Competitions.Count());
         }
 
         [Test]
         public void GetCompetition_Returns_Competition_From_Database()
         {
-            var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db5")
-                .Options;
+            //arrange
+            string title = "testGet";
+            repo.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = title, CompetitionDescription = "test" });
+            context.SaveChanges();
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = "testGet", CompetitionDescription = "test" });
-                context.SaveChanges();
-            }
+            //act
+            string titleFromGet = repo.GetCompetition(1).CompetitionTitle;
 
-
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                var competition = service.GetCompetition(1);
-                Assert.AreEqual("testGet", competition.CompetitionTitle);
-            }
+            //assert
+            Assert.AreEqual(title, titleFromGet);
         }
 
         [Test]
         public void GetCompetitions_ReturnsCollection_From_Database()
         {
-            var options = new DbContextOptionsBuilder<SolarDbContext>()
-                .UseInMemoryDatabase("Test db6")
-                .Options;
+            //arrange
+            var competitions = repo.GetCompetitions();
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 1, CompetitionTitle = "testGet", CompetitionDescription = "test" });
-                service.AddCompetition(new SolarApp.DatabaseCreation.Entities.Competition { CompetitionId = 2, CompetitionTitle = "testGet2", CompetitionDescription = "test2" });
-                context.SaveChanges();
-            }
+            //act
+            var type = competitions.GetType();
 
+            //assert
+            Assert.IsTrue(type.GetInterface(nameof(ICollection)) != null);
 
-            using (var context = new SolarDbContext(options))
-            {
-                var service = new SolarDbRepository(context);
-                var competition = service.GetCompetitions();
-                Assert.AreEqual("testGet2", competition.ElementAt(1).CompetitionTitle);
-                Assert.AreEqual(2, competition.Count());
-            }
         }
     }
 }
