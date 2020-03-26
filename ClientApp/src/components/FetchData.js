@@ -23,7 +23,7 @@ export class FetchData extends Component {
 
   static renderData(columns, values) {
     return (
-      
+      // do przejrzenia: react-table, react-table component
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
           <tr>

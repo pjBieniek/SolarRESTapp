@@ -32,12 +32,12 @@ namespace SolarApp.API.Controllers
             return response;
         }
 
-        [HttpGet("databases/telegraf")]
+        [HttpGet("databases/telegraf")] // dodać limit do body
         public async Task<List<Serie>> GetTelegraf()
         {
             var queries = new[]
             {
-              " SELECT * FROM win_cpu;"
+              " SELECT * FROM win_cpu where time > now()-1d;" //orderBy, limit(100)
               };
             var dbName = "telegraf";
 
