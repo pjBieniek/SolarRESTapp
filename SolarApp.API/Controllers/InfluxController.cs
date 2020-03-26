@@ -32,12 +32,31 @@ namespace SolarApp.API.Controllers
             return response;
         }
 
-        [HttpGet("databases/telegraf")] // dodać limit do body
-        public async Task<List<Serie>> GetTelegraf()
+        [HttpGet("databases/telegrafAllData")] // dodać limit do body
+        public async Task<List<Serie>> GetTelegraf(int limit=1000)
         {
             var queries = new[]
             {
-              " SELECT * FROM win_cpu where time > now()-1d;" //orderBy, limit(100)
+              $" SELECT * FROM win_cpu order by time desc limit {limit};" 
+              };
+            var dbName = "telegraf";
+
+            var response = await clientDb.Client.QueryAsync(queries, dbName);
+            var series = response.ToList();
+            var list = series[0].Values; // Extract the first data from the collection
+
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            var info_model = list.FirstOrDefault();
+
+            return series;
+        }
+
+        [HttpGet("databases/telegraf")]
+        public async Task<List<Serie>> GetTelegrafDetail(string field, int limit=30)
+        {
+            var queries = new[]
+            {
+              $" SELECT time, {field} FROM win_cpu order by time desc limit {limit}"
               };
             var dbName = "telegraf";
 
