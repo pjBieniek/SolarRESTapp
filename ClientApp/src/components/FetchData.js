@@ -9,7 +9,7 @@ export class FetchData extends Component {
   }
 
   componentDidMount() {
-    fetch('https://localhost:44395/api/influx/databases/telegraf',  {method: 'GET'})
+    fetch('https://localhost:44395/api/influx/databases/telegrafAllData',  {method: 'GET'})
       .then(res => res.json())
       .then(json => {
         this.setState({
