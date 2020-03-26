@@ -33,11 +33,11 @@ namespace SolarApp.API.Controllers
         }
 
         [HttpGet("databases/telegrafAllData")] // dodać limit do body
-        public async Task<List<Serie>> GetTelegraf()
+        public async Task<List<Serie>> GetTelegraf(int limit=1000)
         {
             var queries = new[]
             {
-              " SELECT * FROM win_cpu order by time desc limit 1000;" 
+              $" SELECT * FROM win_cpu order by time desc limit {limit};" 
               };
             var dbName = "telegraf";
 
@@ -52,11 +52,11 @@ namespace SolarApp.API.Controllers
         }
 
         [HttpGet("databases/telegraf")]
-        public async Task<List<Serie>> GetTelegrafDetail(string field)
+        public async Task<List<Serie>> GetTelegrafDetail(string field, int limit=30)
         {
             var queries = new[]
             {
-              $" SELECT time, {field} FROM win_cpu order by time desc limit 30"
+              $" SELECT time, {field} FROM win_cpu order by time desc limit {limit}"
               };
             var dbName = "telegraf";
 

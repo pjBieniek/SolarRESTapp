@@ -30,7 +30,7 @@ export class LineChartContainer extends Component{
     }
 
     tick(){
-        fetch('https://localhost:44395/api/influx/databases/telegraf?field='+this.props.measurement,  {method: 'GET'})
+        fetch('https://localhost:44395/api/influx/databases/telegraf?field='+this.props.measurement+'&limit=20',  {method: 'GET'})
             .then(res => res.json())
             .then(json => {
                 let dateLabels = [];
