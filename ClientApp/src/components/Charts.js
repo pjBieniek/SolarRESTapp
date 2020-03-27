@@ -17,22 +17,22 @@ export class Charts extends Component {
   render() {
     return (
     <div>
-      <LineChartContainer measurement="Percent_DPC_Time"/>
-      <BarChartContainer measurement="Percent_DPC_Time"/>
-      <LineChartContainer measurement="Percent_Idle_Time "/>
-      <BarChartContainer measurement="Percent_Idle_Time "/>
-      <LineChartContainer measurement="Percent_Interrupt_Time"/>
-      <BarChartContainer measurement="Percent_Interrupt_Time"/>
-      <LineChartContainer measurement="Percent_Privileged_Time"/>
-      <BarChartContainer measurement="Percent_Privileged_Time"/>
-      <LineChartContainer measurement="Percent_Processor_Time"/>
-      <BarChartContainer measurement="Percent_Processor_Time"/>
-      <LineChartContainer measurement="Percent_User_Time"/>
-      <BarChartContainer measurement="Percent_User_Time"/>
+      <LineChartContainer measurement="Percent_DPC_Time" simpleTitle="DPC"/>
+      <BarChartContainer measurement="Percent_DPC_Time" simpleTitle="DPC"/>
+      <LineChartContainer measurement="Percent_Idle_Time" simpleTitle="Idle"/>
+      <BarChartContainer measurement="Percent_Idle_Time" simpleTitle="Idle"/>
+      <LineChartContainer measurement="Percent_Interrupt_Time" simpleTitle="Interrupt"/>
+      <BarChartContainer measurement="Percent_Interrupt_Time" simpleTitle="Interrupt"/>
+      <LineChartContainer measurement="Percent_Privileged_Time" simpleTitle="Privileged"/>
+      <BarChartContainer measurement="Percent_Privileged_Time" simpleTitle="Privileged"/>
+      <LineChartContainer measurement="Percent_Processor_Time" simpleTitle="Processor"/>
+      <BarChartContainer measurement="Percent_Processor_Time" simpleTitle="Processor"/>
+      <LineChartContainer measurement="Percent_User_Time" simpleTitle="User"/>
+      <BarChartContainer measurement="Percent_User_Time" simpleTitle="User"/>
 
-      <DoughnutContainer/>
+      <DoughnutContainer simpleTitle="Current state"/>
 
-      <PolarContainer/>
+      <PolarContainer simpleTitle="Current state"/>
 
       <div id='lineChart'></div>
     </div>

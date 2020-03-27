@@ -40,7 +40,7 @@ export class LineChartContainer extends Component{
                     values.push(record[1]);
                 })
                 this.setState({
-                name: json[0].name,
+                name: this.props.simpleTitle,
                 chartData: {
                     labels: dateLabels.reverse(),
                     datasets: [{
