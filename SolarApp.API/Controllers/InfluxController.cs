@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InfluxData.Net.Common.Enums;
 using InfluxData.Net.InfluxDb;
 using InfluxData.Net.InfluxDb.Models.Responses;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SolarApp.API.Controllers
@@ -35,9 +33,10 @@ namespace SolarApp.API.Controllers
         [HttpGet("databases/telegrafAllData")] // dodać limit do body
         public async Task<List<Serie>> GetTelegraf(int limit=1000)
         {
+            //string instanceLimit = "_Total";
             var queries = new[]
             {
-              $" SELECT * FROM win_cpu order by time desc limit {limit};" 
+              $" SELECT * FROM win_cpu where instance = '_Total' order by time desc limit {limit};" 
               };
             var dbName = "telegraf";
 
@@ -54,9 +53,11 @@ namespace SolarApp.API.Controllers
         [HttpGet("databases/telegraf")]
         public async Task<List<Serie>> GetTelegrafDetail(string field, int limit=30)
         {
+            //string instanceLimit = "_Total";
+
             var queries = new[]
             {
-              $" SELECT time, {field} FROM win_cpu order by time desc limit {limit}"
+              $" SELECT time, {field} FROM win_cpu where instance = '_Total' order by time desc limit {limit}"
               };
             var dbName = "telegraf";
 

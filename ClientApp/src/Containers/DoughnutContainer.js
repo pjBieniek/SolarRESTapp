@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {Line} from 'react-chartjs-2';
+import {Doughnut} from 'react-chartjs-2';
 
-export class LineChartContainer extends Component{
+export class DoughnutContainer extends Component{
     constructor(props){
         super(props);
         this.state={
-            name:'line chart',
+            name:'doughnut chart',
             chartData:{},
             loading: true
         }
@@ -30,22 +30,27 @@ export class LineChartContainer extends Component{
     }
 
     tick(){
-        fetch('https://localhost:44395/api/influx/databases/telegraf?field='+this.props.measurement+'&limit=20',  {method: 'GET'})
+        fetch('https://localhost:44395/api/influx/databases/telegrafAllData?limit=1',  {method: 'GET'})
             .then(res => res.json())
             .then(json => {
-                let dateLabels = [];
-                let values = [];
-                json[0].values.forEach(record =>{
-                    dateLabels.push(record[0].slice(-9, -1));
-                    values.push(record[1]);
-                })
+                let dateLabels = json[0].columns.slice(1,7);
+                let values = json[0].values[0].slice(1,7);
+                // console.log(json[0]);
                 this.setState({
                 name: json[0].name,
                 chartData: {
-                    labels: dateLabels.reverse(),
+                    labels: dateLabels,
                     datasets: [{
-                        label: json[0].columns[1] + ' usage [%]',
-                        data: values.reverse(),
+                        label:'usage [%]',
+                        data: values,
+                        backgroundColor:[
+                            'rgba(255, 99, 132, 0.6)',
+                            'rgba(54, 162, 235, 0.6)',
+                            'rgba(255, 206, 86, 0.6)',
+                            'rgba(75, 192, 192, 0.6)',
+                            'rgba(153, 102, 255, 0.6)',
+                            'rgba(255, 159, 64, 0.6)'
+                          ]
                     }]
                 },
                 loading: false,
@@ -56,7 +61,7 @@ export class LineChartContainer extends Component{
     render(){
         return (
             <div className="chart">
-                <Line 
+                <Doughnut
                     data={this.state.chartData}
                     options={{
                       title:{
@@ -75,4 +80,4 @@ export class LineChartContainer extends Component{
     }
 }
 
-export default LineChartContainer;
+export default DoughnutContainer;

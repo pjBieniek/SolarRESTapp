@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import {Line} from 'react-chartjs-2';
+import {HorizontalBar} from 'react-chartjs-2';
 
-export class LineChartContainer extends Component{
+export class BarChartContainer extends Component{
     constructor(props){
         super(props);
         this.state={
-            name:'line chart',
+            name:'bar chart',
             chartData:{},
             loading: true
         }
@@ -46,6 +46,7 @@ export class LineChartContainer extends Component{
                     datasets: [{
                         label: json[0].columns[1] + ' usage [%]',
                         data: values.reverse(),
+                        backgroundColor:"#70CAD1",
                     }]
                 },
                 loading: false,
@@ -56,7 +57,7 @@ export class LineChartContainer extends Component{
     render(){
         return (
             <div className="chart">
-                <Line 
+                <HorizontalBar
                     data={this.state.chartData}
                     options={{
                       title:{
@@ -75,4 +76,4 @@ export class LineChartContainer extends Component{
     }
 }
 
-export default LineChartContainer;
+export default BarChartContainer;
