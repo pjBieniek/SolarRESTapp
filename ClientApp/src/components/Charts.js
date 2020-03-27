@@ -30,9 +30,9 @@ export class Charts extends Component {
       <LineChartContainer measurement="Percent_User_Time" simpleTitle="User"/>
       <BarChartContainer measurement="Percent_User_Time" simpleTitle="User"/>
 
-      <DoughnutContainer/>
+      <DoughnutContainer simpleTitle="Current state"/>
 
-      <PolarContainer/>
+      <PolarContainer simpleTitle="Current state"/>
 
       <div id='lineChart'></div>
     </div>
