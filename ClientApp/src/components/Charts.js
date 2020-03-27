@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {LineChartContainer} from '../Containers/LineChartContainer';
 import {BarChartContainer} from '../Containers/BarChartContainer';
 import { DoughnutContainer } from '../Containers/DoughnutContainer';
+import PolarContainer from '../Containers/PolarContainer';
 
 
 export class Charts extends Component {
@@ -30,6 +31,8 @@ export class Charts extends Component {
       <BarChartContainer measurement="Percent_User_Time"/>
 
       <DoughnutContainer/>
+
+      <PolarContainer/>
 
       <div id='lineChart'></div>
     </div>
