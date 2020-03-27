@@ -37,7 +37,7 @@ export class DoughnutContainer extends Component{
                 let values = json[0].values[0].slice(1,7);
                 // console.log(json[0]);
                 this.setState({
-                name: json[0].name,
+                name: this.props.simpleTitle,
                 chartData: {
                     labels: dateLabels,
                     datasets: [{
